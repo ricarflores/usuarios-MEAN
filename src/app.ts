@@ -3,7 +3,7 @@ import bodyParser from "body-parser"
 import http from "http"
 import io from "socket.io" 
 import { Server as Main } from './interfaces/';
-import Routes from '../src/lib/routes';
+import Routes from './lib/routes';
 import { Connect } from './config/';
 
 
