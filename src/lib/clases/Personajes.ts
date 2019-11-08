@@ -41,7 +41,7 @@ export default class Personaje
     }
     listPersonajes(){
     }
-    getPersonaje(id?:Types.ObjectId):IPersonaje{
+    getPersonaje(id?:Types.ObjectId){
         const critera = (id) ? {_id:id} : {}
         return MPersonaje.find(critera)
                 .then( u => (u && u.length<1) ? {} : (id && u[0]._id) ? u[0] : u )
