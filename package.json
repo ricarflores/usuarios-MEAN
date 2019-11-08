@@ -10,7 +10,7 @@
     "postinstall": "npm run build",
     "build": "tsc -p ."
   },
-  "author": "",
+  "author": "Ricardo",
   "license": "ISC",
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
