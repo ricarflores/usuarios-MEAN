@@ -12,7 +12,7 @@ const Params = (req: Request,res:Response, next: NextFunction) =>{
     }
     else{
         
-        res.status(500).send("Id Incorrecto")
+        res.status(500).send({error:"Id invalido",code:500, mesagge:"Id incorrecto"})
     }
 }
 const nombre = (req:Request,res:Response,next:NextFunction) =>{
