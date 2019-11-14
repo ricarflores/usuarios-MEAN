@@ -20,6 +20,7 @@ const getPersonaje = (req:Request, res:Response):void => {
 }
 
 const listPersonaje = (req:Request, res:Response):void => {
+    console.log("List")
     let per:Personajes = new Personajes(req.body);
     per.getPersonaje()
         .then((p:any)=>{

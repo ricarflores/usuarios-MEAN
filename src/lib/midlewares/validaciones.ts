@@ -1,6 +1,10 @@
 'use strict';
 import {Request, Response, NextFunction} from "express";
-import {Types} from 'mongoose'
+import {Types} from 'mongoose';
+import jwt from 'jsonwebtoken';
+import axios from "axios"
+import { variables } from './../../config/settings';
+import bcrypt from 'bcrypt'
 const Params = (req: Request,res:Response, next: NextFunction) =>{
     const ObjectId = Types.ObjectId;
     const params = req.params.id;
@@ -41,8 +45,44 @@ const description = (req:Request,res:Response,next:NextFunction) =>{
         })
     }
 }
+const jsonParams = (req: Request,res:Response, next: NextFunction) =>{
+    const { token } = req.query;
+    if(token){
+        jwt.verify(token,"~estoEsUnaCodificacion@",(err:any,decoded:any)=>{
+            if(decoded && decoded.user)
+            {
+                console.log(decoded.user)
+                const {email, password} = decoded.user;
+                console.log("err:" ,err);
+                console.log("decodes, ",decoded);
+                let url = variables.baseUserMicroServiceUrl+email+"/login"
+                console.log(url)
+                next()
+                /*
+                axios.post(url, {password})
+                    .then((data:any)=>{
+                        console.log(data.data)
+                        
+                    })
+                    .catch((err)=>{
+                        console.log(err)
+                        res.status(401).json({mensaje:"Acceso denegado"})
+                    })*/
+                
+            }
+            else{
+                res.status(401).json({mensaje:"Acceso denegado"})
+            }
+        })
+    }
+    else{
+        res.status(401).json({mensaje:"Acceso denegado"})
+    }
+    
+}
 export{
     nombre,
     description,
-    Params
+    Params,
+    jsonParams
 }
